@@ -1,11 +1,11 @@
 import '../auth/user.js';
 // > Part A: import updateProfile from fetch-utils.js
 import '../fetch-utils.js';
-import { updateProfile } from '../fetch-utils.js';
 // > Part B: import getUser and getProfile from fetch-utils.js
+import { updateProfile, getUser, getProfile } from '../fetch-utils.js';
 
 // > Part B: get the user
-const user = null; // ???
+const user = getUser();
 
 const errorDisplay = document.getElementById('error-display');
 const profileForm = document.getElementById('profile-form');
@@ -19,6 +19,9 @@ let error = null;
 window.addEventListener('load', async () => {
     // > Part B:
     //      - get the profile based on user.id
+    const response = await getProfile(user.id);
+    error = response.error;
+    profile = response.data;
     //      - set profile and error state from response object
 
     if (error) {
@@ -73,6 +76,8 @@ profileForm.addEventListener('submit', async (e) => {
 
 function displayProfile() {
     // > Part B: update user name and bio from profile object
+    userNameInput.value = profile.user_name;
+    bioTextArea.value = profile.bio;
 }
 
 function displayError() {
